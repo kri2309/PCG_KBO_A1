@@ -10,7 +10,7 @@ public class TriangleGen : MonoBehaviour
     [SerializeField]
     private Vector3 size = Vector3.one;
 
-    public List<Material> materialList;
+    public List<Material> allMaterials;
 
 
     void Update()
@@ -31,6 +31,6 @@ public class TriangleGen : MonoBehaviour
         meshFilter.mesh = meshBuilder.CreateMesh();
 
         MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
-        meshRenderer.materials = materialList.ToArray();
+        meshRenderer.materials = allMaterials.ToArray();
     }
 }
