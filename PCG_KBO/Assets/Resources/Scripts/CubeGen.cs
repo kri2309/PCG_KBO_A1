@@ -77,6 +77,8 @@ public class CubeGen : MonoBehaviour
 
     private void AddMaterials()
     {
+        Material yellow = new Material(Shader.Find("Specular"));
+        yellow.color = Color.yellow;
         Material white = new Material(Shader.Find("Specular"));
         white.color = Color.white;
         Material magenta = new Material(Shader.Find("Specular"));
@@ -87,8 +89,7 @@ public class CubeGen : MonoBehaviour
         blue.color = Color.blue;
         Material green = new Material(Shader.Find("Specular"));
         green.color = Color.green;
-        Material yellow = new Material(Shader.Find("Specular"));
-        yellow.color = Color.yellow;
+      
 
         
         allMaterials = new List<Material>();
