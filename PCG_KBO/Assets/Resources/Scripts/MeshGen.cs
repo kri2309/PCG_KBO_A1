@@ -64,11 +64,8 @@ public class MeshGen //helper class
         //assigning everything 
 
         mesh.vertices = vertices.ToArray();
-
         mesh.triangles = indices.ToArray();
-
         mesh.normals = normals.ToArray();
-
         mesh.uv = uvs.ToArray();
 
          //mesh created         
