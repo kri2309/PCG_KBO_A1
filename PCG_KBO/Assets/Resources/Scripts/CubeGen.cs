@@ -99,4 +99,8 @@ public class CubeGen : MonoBehaviour
         allMaterials.Add(yellow);
         allMaterials.Add(red);
     }
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(transform.position, size*2);
+    }
 }
