@@ -40,15 +40,15 @@ public class LandscapeGen : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                //points[x, y] = new Vector3(cellsize * x,
-                //                          Mathf.PerlinNoise(
-                //                             x * bumpyness * 0.1f, y * bumpyness * 0.1f) * bumpheight,
-                //                         cellsize * y);
-
                 points[x, y] = new Vector3(cellsize * x,
                                           Mathf.PerlinNoise(
-                                            (x + Time.time) * bumpyness * 0.1f, (y + Time.time) * bumpyness * 0.1f) * bumpheight,
+                                             x * bumpyness * 0.1f, y * bumpyness * 0.1f) * bumpheight,
                                          cellsize * y);
+
+                //points[x, y] = new Vector3(cellsize * x,
+                //                          Mathf.PerlinNoise(
+                //                            (x + Time.time) * bumpyness * 0.1f, (y + Time.time) * bumpyness * 0.1f) * bumpheight,
+                 //                        cellsize * y);
             }
         }
 

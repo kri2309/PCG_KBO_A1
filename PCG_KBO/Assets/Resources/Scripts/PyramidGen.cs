@@ -43,17 +43,9 @@ public class PyramidGen : MonoBehaviour
 
         Material red = new Material(Shader.Find("Specular"));
         red.color = Color.red;
-        Material green = new Material(Shader.Find("Specular"));
-        green.color = Color.green;
-        Material blue = new Material(Shader.Find("Specular"));
-        blue.color = Color.blue;
-        Material yellow = new Material(Shader.Find("Specular"));
-        yellow.color = Color.yellow;
-
+       
         materialsList.Add(red);
-        materialsList.Add(green);
-        materialsList.Add(blue);
-        materialsList.Add(yellow);
+    
 
         return materialsList;
     }

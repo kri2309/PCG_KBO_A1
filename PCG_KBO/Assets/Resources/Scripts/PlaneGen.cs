@@ -76,23 +76,9 @@ public class PlaneGen : MonoBehaviour
 
         Material blue = new Material(Shader.Find("Specular"));
         blue.color = Color.blue;
-        Material red = new Material(Shader.Find("Specular"));
-        red.color = Color.red;
-        Material green = new Material(Shader.Find("Specular"));
-        green.color = Color.green;
-        Material yellow = new Material(Shader.Find("Specular"));
-        yellow.color = Color.yellow;
-        Material magenta = new Material(Shader.Find("Specular"));
-        magenta.color = Color.magenta;
-        Material white = new Material(Shader.Find("Specular"));
-        white.color = Color.white;
-
-        materialsList.Add(red);
-        materialsList.Add(green);
+    
         materialsList.Add(blue);
-        materialsList.Add(yellow);
-        materialsList.Add(magenta);
-        materialsList.Add(white);
+      
 
         return materialsList;
     }
