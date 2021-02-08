@@ -13,8 +13,6 @@ public class CubeGen : MonoBehaviour
     [SerializeField]
     private int Size = 6;
 
-    public List<Material> allMaterials;
-
     
     void Update()
     {
@@ -71,23 +69,13 @@ public class CubeGen : MonoBehaviour
 
 
         MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
-        AddMaterials();
-        meshRenderer.materials = allMaterials.ToArray();
-    }
-
-    private void AddMaterials()
-    {
+    
+     
         Material magenta = new Material(Shader.Find("Specular"));
         magenta.color = Color.magenta;
-    
-      
-
-        
-        allMaterials = new List<Material>();
-  
-        allMaterials.Add(magenta);
-
+        meshRenderer.material = magenta;
     }
+
     public void OnDrawGizmos()
     {
         Gizmos.DrawCube(transform.position, size*2);
