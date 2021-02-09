@@ -282,7 +282,7 @@ public class TerrainGen : MonoBehaviour
             trees[i].prefab = treeDataList[i].treeMesh;
         }
 
-        terrainData.treePrototypes = trees;
+        //terrainData.treePrototypes = trees;
 
         List<TreeInstance> treeInstanceList = new List<TreeInstance>();
 

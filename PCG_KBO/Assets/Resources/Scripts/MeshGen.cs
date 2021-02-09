@@ -9,15 +9,18 @@ public class MeshGen //helper class
     private List<Vector3> normals = new List<Vector3>();
     private List<Vector2> uvs = new List<Vector2>();
 
-    private int submeshCount;
-
+    private List<int>[] submeshIndices = new List<int>[] { }; // an array of submesh indices
 
     //procedurally generates meshes
     public MeshGen(int submeshCount)
     {
-        this.submeshCount = submeshCount;
-    }
+        submeshIndices = new List<int>[submeshCount];
 
+        for (int i = 0; i < submeshCount; i++)
+        {
+            submeshIndices[i] = new List<int>();
+        }
+    }
     public void BuildTriangle(Vector3 p0, Vector3 p1, Vector3 p2, int subMesh)
     {
         Vector3 normal = Vector3.Cross(p1 - p0, p2 - p0).normalized; //calculating the normal 
@@ -40,6 +43,11 @@ public class MeshGen //helper class
         indices.Add(p1Index);
         indices.Add(p2Index);
 
+
+        submeshIndices[subMesh].Add(p0Index);
+        submeshIndices[subMesh].Add(p1Index);
+        submeshIndices[subMesh].Add(p2Index);
+
         //Adding the points
         vertices.Add(p0); 
         vertices.Add(p1); 
@@ -56,19 +64,33 @@ public class MeshGen //helper class
         uvs.Add(new Vector2(1, 1));
     }
 
-    public Mesh CreateMesh()
+
+    public Mesh CreateMesh() // build our mesh
     {
-        //creating the mesh object
         Mesh mesh = new Mesh();
 
-        //assigning everything 
-
         mesh.vertices = vertices.ToArray();
+
         mesh.triangles = indices.ToArray();
+
         mesh.normals = normals.ToArray();
+
         mesh.uv = uvs.ToArray();
 
-         //mesh created         
+        mesh.subMeshCount = submeshIndices.Length;
+
+        for (int i = 0; i < submeshIndices.Length; i++)
+        {
+            if (submeshIndices[i].Count < 3)
+            {
+                mesh.SetTriangles(new int[3] { 0, 0, 0 }, i);
+            }
+            else
+            {
+                mesh.SetTriangles(submeshIndices[i].ToArray(), i);
+            }
+        }
+
         return mesh;
     }
 

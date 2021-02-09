@@ -19,16 +19,16 @@ public class TriangleGen : MonoBehaviour
         MeshFilter meshFilter = this.GetComponent<MeshFilter>();
 
 
-        MeshGen meshBuilder = new MeshGen(1);
+        MeshGen meshGen = new MeshGen(1);
 
 
         Vector3 p0 = new Vector3(size.x,  size.y, -size.z);
         Vector3 p1 = new Vector3(-size.x, size.y, -size.z);
         Vector3 p2 = new Vector3(-size.x, size.y,  size.z);
 
-        meshBuilder.BuildTriangle(p0, p1, p2, 0);
+        meshGen.BuildTriangle(p0, p1, p2, 0);
 
-        meshFilter.mesh = meshBuilder.CreateMesh();
+        meshFilter.mesh = meshGen.CreateMesh();
 
         MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
         AddMaterials();
