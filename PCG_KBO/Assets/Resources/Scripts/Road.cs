@@ -96,8 +96,7 @@ public class Road : MonoBehaviour
             ExtrudeRoad(meshGen, pPrev, pCurr, pNext);
         }
 
-        car.transform.position = points[0];
-        car.transform.LookAt(points[1]);
+       
 
         meshFilter.mesh = meshGen.CreateMesh();
 
