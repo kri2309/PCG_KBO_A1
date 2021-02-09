@@ -28,9 +28,9 @@ public class PyramidGen : MonoBehaviour
 
         //Build the triangles for our pyramid
         meshBuilder.BuildTriangle(base0, base1, base2, 0);
-        meshBuilder.BuildTriangle(base1, base0, top, 1);
-        meshBuilder.BuildTriangle(base2, top, base0, 2);
-        meshBuilder.BuildTriangle(top, base2, base1, 3);
+        meshBuilder.BuildTriangle(base1, base0, top, 0);
+        meshBuilder.BuildTriangle(base2, top, base0, 0);
+        meshBuilder.BuildTriangle(top, base2, base1, 0);
         meshFilter.mesh = meshBuilder.CreateMesh();
 
         MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();

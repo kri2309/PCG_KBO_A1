@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 
+[ExecuteInEditMode]
 public class CubeGen : MonoBehaviour
 {
     [SerializeField]
@@ -43,27 +44,27 @@ public class CubeGen : MonoBehaviour
         meshBuilder.BuildTriangle(t0, t2, t3, 0);
 
         //bottom square
-        meshBuilder.BuildTriangle(b2, b1, b0, 1);
-        meshBuilder.BuildTriangle(b3, b2, b0, 1);
+        meshBuilder.BuildTriangle(b2, b1, b0, 0);
+        meshBuilder.BuildTriangle(b3, b2, b0, 0);
 
 
         //back square
-        meshBuilder.BuildTriangle(b0, t1, t0, 2);
-        meshBuilder.BuildTriangle(b0, b1, t1, 2);
+        meshBuilder.BuildTriangle(b0, t1, t0, 0);
+        meshBuilder.BuildTriangle(b0, b1, t1, 0);
 
 
         //left-side square
-        meshBuilder.BuildTriangle(b1, t2, t1, 3);
-        meshBuilder.BuildTriangle(b1, b2, t2, 3);
+        meshBuilder.BuildTriangle(b1, t2, t1, 0);
+        meshBuilder.BuildTriangle(b1, b2, t2, 0);
 
 
         //right-side square
-        meshBuilder.BuildTriangle(b2, t3, t2, 4);
-        meshBuilder.BuildTriangle(b2, b3, t3, 4);
+        meshBuilder.BuildTriangle(b2, t3, t2, 0);
+        meshBuilder.BuildTriangle(b2, b3, t3, 0);
 
         //front square
-        meshBuilder.BuildTriangle(b3, t0, t3, 5);
-        meshBuilder.BuildTriangle(b3, b0, t0, 5);
+        meshBuilder.BuildTriangle(b3, t0, t3, 0);
+        meshBuilder.BuildTriangle(b3, b0, t0, 0);
 
         meshFilter.mesh = meshBuilder.CreateMesh();
 
