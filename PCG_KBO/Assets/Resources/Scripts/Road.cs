@@ -50,6 +50,7 @@ public class Road : MonoBehaviour
 
     void Start()
     {
+        Vector3 spawnPoint = Vector3.zero;
         MeshFilter meshFilter = this.GetComponent<MeshFilter>();
 
         MeshCollider meshCollider = this.GetComponent<MeshCollider>();
@@ -67,6 +68,12 @@ public class Road : MonoBehaviour
         {
             Vector3 point = Quaternion.AngleAxis(degrees, Vector3.up) * Vector3.forward * radius;
             points.Add(point);
+            if (degrees == 0)
+            {
+                spawnPoint = point;
+                Debug.Log(point);
+            }
+                
         }
 
         Vector2 wave = this.waveOffset;
@@ -101,6 +108,7 @@ public class Road : MonoBehaviour
         meshFilter.mesh = meshGen.CreateMesh();
 
         meshCollider.sharedMesh = meshFilter.mesh;
+        car.transform.position = transform.position + (spawnPoint + Vector3.up);
     }
 
     //3. This method will used to create the different segments for each segment we are going to draw the road marker 
@@ -181,5 +189,7 @@ public class Road : MonoBehaviour
 
         meshGen.BuildTriangle(bottomLeft, bottomRight, topLeft, submesh);
         meshGen.BuildTriangle(bottomRight, topRight, topLeft, submesh);
+
+        
     }
 }

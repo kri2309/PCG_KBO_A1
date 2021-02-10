@@ -80,6 +80,16 @@ public class TerrainGen : MonoBehaviour
     private int treeSpacing = 10;
 
     [SerializeField]
+    private List<TreeData> detailsDataList;
+
+    [SerializeField]
+    private int maxDetails = 10000;
+
+    [SerializeField]
+    private int detailSpacing = 3;
+
+
+    [SerializeField]
     private float randomXRange = 5.0f;
 
     [SerializeField]
@@ -125,10 +135,12 @@ public class TerrainGen : MonoBehaviour
 #endif
     }
 
+    //Updates when not in playmode
     private void OnValidate()
     {
         initialise();
 
+        //Using all the settings set in the inspector, generate certain elements of the terrain
         if (flattenTerrain)
         {
             generateTerrain = false;
@@ -170,9 +182,6 @@ public class TerrainGen : MonoBehaviour
 
     void CreateTerrain()
     {
-        //creates a new empty 2D array of float based on the dimensions of heightmap resolution set in the settings
-        //float[,] heightMap = new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
-
         ////gets the height map data that already exists in the terrain and loads it into a 2D array
         float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
 
@@ -182,22 +191,22 @@ public class TerrainGen : MonoBehaviour
             {
                 if (generateTerrain)
                 {
-                    heightMap[width, height] = UnityEngine.Random.Range(minRandomHeightRange, maxRandomHeightRange);
+                    heightMap[width, height] = UnityEngine.Random.Range(minRandomHeightRange, maxRandomHeightRange);//Generates a completely random terrain (does not look good)
                 }
 
                 if (generatePerlinNoiseTerrain)
                 {
-                    heightMap[width, height] = Mathf.PerlinNoise(width * perlinNoiseWidthScale, height * perlinNoiseHeightScale);
+                    heightMap[width, height] = Mathf.PerlinNoise(width * perlinNoiseWidthScale, height * perlinNoiseHeightScale);//Generates smooth terrain based on perlin noise functions (looks good, smoother)
                 }
 
                 if (flattenTerrain)
                 {
-                    heightMap[width, height] = 0;
+                    heightMap[width, height] = 0; //Creates just a flat terrain
                 }
             }
         }
 
-        terrainData.SetHeights(0, 0, heightMap);
+        terrainData.SetHeights(0, 0, heightMap);//Apply heightmap to terrain
     }
 
     //this method is going to add textures to the terrain
@@ -205,7 +214,7 @@ public class TerrainGen : MonoBehaviour
     {
         TerrainLayer[] terrainLayers = new TerrainLayer[terrainTextureDataList.Count];
 
-        for (int i = 0; i < terrainTextureDataList.Count; i++)
+        for (int i = 0; i < terrainTextureDataList.Count; i++)//Goes through all textures applied in inspector
         {
             if (addTexture)
             {
@@ -220,10 +229,10 @@ public class TerrainGen : MonoBehaviour
             }
         }
 
-        terrainData.terrainLayers = terrainLayers;
+        terrainData.terrainLayers = terrainLayers;//Adds layers to terrain editor
 
 
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);//Gets heightmap of terrain
 
         float[,,] alphaMapList = new float[terrainData.alphamapWidth, terrainData.alphamapHeight, terrainData.alphamapLayers];
 
@@ -253,7 +262,7 @@ public class TerrainGen : MonoBehaviour
             }
         }
 
-        terrainData.SetAlphamaps(0, 0, alphaMapList);
+        terrainData.SetAlphamaps(0, 0, alphaMapList);//Applies textures
     }
 
 
@@ -312,8 +321,6 @@ public class TerrainGen : MonoBehaviour
                                                                     treeInstance.position.y * terrainData.size.y,
                                                                     treeInstance.position.z * terrainData.size.z) + this.transform.position;
 
-
-
                                 RaycastHit raycastHit;
                                 int layerMask = 1 << terrainLayerIndex;
 
@@ -365,4 +372,4 @@ public class TerrainGen : MonoBehaviour
     {
         
     }
-    }
+}
