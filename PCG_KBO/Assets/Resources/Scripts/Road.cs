@@ -70,7 +70,7 @@ public class Road : MonoBehaviour
             points.Add(point);
             if (degrees == 0)
             {
-                spawnPoint = point;
+                spawnPoint = point; //using the first point to generate the road to spawn the car
                 Debug.Log(point);
             }
                 

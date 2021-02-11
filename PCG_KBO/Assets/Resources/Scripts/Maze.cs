@@ -17,16 +17,17 @@ public class Maze : MonoBehaviour
         //Activate maze, (each maze piece uses the cube generator)
         maze.SetActive(true);
 
-        int start = Random.Range(0, startPoints.Length);
+        int start = Random.Range(0, startPoints.Length);//creating random startpoint from array
         Instantiate(startObject, startPoints[start].transform.position, Quaternion.identity);
-        playerRef = Instantiate(player, startPoints[start].transform.position + Vector3.up, Quaternion.identity);
+        playerRef = Instantiate(player, startPoints[start].transform.position + Vector3.up, Quaternion.identity); //putting player on start point
 
-        int end = Random.Range(0, endPoints.Length);
-        endRef = Instantiate(endObject, endPoints[end].transform.position, Quaternion.identity);
+        int end = Random.Range(0, endPoints.Length); //getting random end point from array
+        endRef = Instantiate(endObject, endPoints[end].transform.position, Quaternion.identity); //setting the finish point to the end ref
     }
 
     private void Update()
     {
+        //checking if the player is at end point to activate the win text
         if (Vector3.Distance(playerRef.transform.position, endRef.transform.position) < 2)
         {
             winText.SetActive(true);

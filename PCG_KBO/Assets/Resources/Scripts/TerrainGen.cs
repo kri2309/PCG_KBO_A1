@@ -28,14 +28,9 @@ public class TerrainGen : MonoBehaviour
     private TerrainData terrainData;
 
     //options in editor
-    [SerializeField]
-    private bool generateTerrain = true;
 
     [SerializeField]
-    private bool generatePerlinNoiseTerrain = false;
-
-    [SerializeField]
-    private bool flattenTerrain = false;
+    private bool generatePerlinNoiseTerrain = true;
 
     [SerializeField]
     private bool addTexture = false;
@@ -88,7 +83,6 @@ public class TerrainGen : MonoBehaviour
     [SerializeField]
     private int detailSpacing = 3;
 
-
     [SerializeField]
     private float randomXRange = 5.0f;
 
@@ -118,7 +112,7 @@ public class TerrainGen : MonoBehaviour
         CreateTerrain();
     }
 
-    void initialise()
+    void initialise() //to remove any errors in the scene 
     {
 #if UNITY_EDITOR
 
@@ -134,6 +128,7 @@ public class TerrainGen : MonoBehaviour
 
 #endif
     }
+   
 
     //Updates when not in playmode
     private void OnValidate()
@@ -141,13 +136,8 @@ public class TerrainGen : MonoBehaviour
         initialise();
 
         //Using all the settings set in the inspector, generate certain elements of the terrain
-        if (flattenTerrain)
-        {
-            generateTerrain = false;
-            generatePerlinNoiseTerrain = false;
-        }
 
-        if (generateTerrain || flattenTerrain || generatePerlinNoiseTerrain)
+        if ( generatePerlinNoiseTerrain)
         {
             CreateTerrain();
         }
@@ -178,8 +168,6 @@ public class TerrainGen : MonoBehaviour
         }
     }
 
-   
-
     void CreateTerrain()
     {
         ////gets the height map data that already exists in the terrain and loads it into a 2D array
@@ -189,27 +177,18 @@ public class TerrainGen : MonoBehaviour
         {
             for (int height = 0; height < terrainData.heightmapResolution; height++)
             {
-                if (generateTerrain)
-                {
-                    heightMap[width, height] = UnityEngine.Random.Range(minRandomHeightRange, maxRandomHeightRange);//Generates a completely random terrain (does not look good)
-                }
-
+               
                 if (generatePerlinNoiseTerrain)
                 {
                     heightMap[width, height] = Mathf.PerlinNoise(width * perlinNoiseWidthScale, height * perlinNoiseHeightScale);//Generates smooth terrain based on perlin noise functions (looks good, smoother)
                 }
-
-                if (flattenTerrain)
-                {
-                    heightMap[width, height] = 0; //Creates just a flat terrain
-                }
             }
         }
 
-        terrainData.SetHeights(0, 0, heightMap);//Apply heightmap to terrain
+        terrainData.SetHeights(0, 0, heightMap);//Applying heightmap to the terrain
     }
 
-    //this method is going to add textures to the terrain
+    //add textures to the terrain
     void TerrainTexture()
     {
         TerrainLayer[] terrainLayers = new TerrainLayer[terrainTextureDataList.Count];
@@ -229,7 +208,7 @@ public class TerrainGen : MonoBehaviour
             }
         }
 
-        terrainData.terrainLayers = terrainLayers;//Adds layers to terrain editor
+        terrainData.terrainLayers = terrainLayers;//Adds layers chosen to terrain editor
 
 
         float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);//Gets heightmap of terrain
@@ -266,7 +245,7 @@ public class TerrainGen : MonoBehaviour
     }
 
 
-    void NormaliseSplatMap(float[] splatmap)
+    void NormaliseSplatMap(float[] splatmap) //when you overlap 2 textures on top on eachother 
     {
         float total = 0;
 
@@ -283,7 +262,7 @@ public class TerrainGen : MonoBehaviour
 
     void AddTree()
     {
-        TreePrototype[] trees = new TreePrototype[treeDataList.Count];
+        TreePrototype[] trees = new TreePrototype[treeDataList.Count]; //getting trees from inspector 
 
         for (int i = 0; i < treeDataList.Count; i++)
         {
@@ -291,8 +270,7 @@ public class TerrainGen : MonoBehaviour
             trees[i].prefab = treeDataList[i].treeMesh;
         }
 
-        //terrainData.treePrototypes = trees;
-
+     
         List<TreeInstance> treeInstanceList = new List<TreeInstance>();
 
         if (addTree)
@@ -321,9 +299,9 @@ public class TerrainGen : MonoBehaviour
                                                                     treeInstance.position.y * terrainData.size.y,
                                                                     treeInstance.position.z * terrainData.size.z) + this.transform.position;
 
-                                RaycastHit raycastHit;
+                                RaycastHit raycastHit; 
                                 int layerMask = 1 << terrainLayerIndex;
-
+                                //using raycast to put trees on terrain 
                                 if (Physics.Raycast(treePosition, Vector3.down, out raycastHit, 100, layerMask) ||
                                     Physics.Raycast(treePosition, Vector3.up, out raycastHit, 100, layerMask))
                                 {
@@ -338,7 +316,7 @@ public class TerrainGen : MonoBehaviour
                                     treeInstance.heightScale = 0.95f;
                                     treeInstance.widthScale = 0.95f;
 
-                                    treeInstanceList.Add(treeInstance);
+                                    treeInstanceList.Add(treeInstance); //adding the tree
                                 }
                             }
                         }
@@ -352,18 +330,15 @@ public class TerrainGen : MonoBehaviour
 
     void AddWater()
     {
-        GameObject waterGameObject = GameObject.Find("water");
+        GameObject waterGameObject = GameObject.Find("Water"); 
 
-        if (!waterGameObject)
+        if (!waterGameObject) //create game object if not created
         {
             waterGameObject = Instantiate(water, this.transform.position, this.transform.rotation);
-            waterGameObject.name = "water";
+            waterGameObject.name = "Water";
         }
 
-        waterGameObject.transform.position = this.transform.position + new Vector3(
-            terrainData.size.x / 2,
-            waterHeight * terrainData.size.y,
-            terrainData.size.z / 2);
+        waterGameObject.transform.position = this.transform.position + new Vector3(terrainData.size.x / 2, waterHeight * terrainData.size.y, terrainData.size.z / 2);
 
         waterGameObject.transform.localScale = new Vector3(terrainData.size.x, 1, terrainData.size.z);
     }
