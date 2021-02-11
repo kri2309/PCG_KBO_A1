@@ -68,14 +68,9 @@ public class Road : MonoBehaviour
         {
             Vector3 point = Quaternion.AngleAxis(degrees, Vector3.up) * Vector3.forward * radius;
             points.Add(point);
-            if (degrees == 0)
-            {
-                spawnPoint = point; //using the first point to generate the road to spawn the car
-                Debug.Log(point);
-            }
-                
+             
         }
-
+        spawnPoint = points[Random.Range(0, points.Count)];
         Vector2 wave = this.waveOffset;
 
         for (int i = 0; i < points.Count; i++)
@@ -107,11 +102,11 @@ public class Road : MonoBehaviour
 
         meshFilter.mesh = meshGen.CreateMesh();
 
-        meshCollider.sharedMesh = meshFilter.mesh;
+        meshCollider.sharedMesh = meshFilter.sharedMesh;
         car.transform.position = transform.position + (spawnPoint + Vector3.up);
     }
 
-    //3. This method will used to create the different segments for each segment we are going to draw the road marker 
+    // This method will used to create the different segments for each segment we are going to draw the road marker 
     //   (i.e. white line in the middle), draw the road on each side of the line, draw the edges - all these are going 
     //   to be placed in different positions
     private void ExtrudeRoad(MeshGen meshGen, Vector3 pPrev, Vector3 pCurr, Vector3 pNext)

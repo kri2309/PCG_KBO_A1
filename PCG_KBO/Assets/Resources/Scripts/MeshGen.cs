@@ -26,7 +26,6 @@ public class MeshGen //helper class
         Vector3 normal = Vector3.Cross(p1 - p0, p2 - p0).normalized; //calculating the normal 
         BuildTriangle(p0, p1, p2, normal, subMesh);  //passing on 3 points of triangle and normal
 
-
     }
 
 

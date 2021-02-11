@@ -34,19 +34,9 @@ public class PyramidGen : MonoBehaviour
         meshFilter.mesh = meshBuilder.CreateMesh();
 
         MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
-        meshRenderer.materials = MaterialsList().ToArray();
-    }
-
-    private List<Material> MaterialsList()
-    {
-        List<Material> materialsList = new List<Material>();
-
         Material red = new Material(Shader.Find("Specular"));
         red.color = Color.red;
-       
-        materialsList.Add(red);
-    
-
-        return materialsList;
+        meshRenderer.material = red;
     }
+
 }

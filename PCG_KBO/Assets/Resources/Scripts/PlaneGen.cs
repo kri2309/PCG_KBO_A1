@@ -18,16 +18,16 @@ public class PlaneGen : MonoBehaviour
     private int height = 24;
 
     [SerializeField]
-    private int Size = 6;
+    private int subMeshSize = 6;
 
-    
+    // Update is called once per frame
     void Update()
     {
         MeshFilter meshFilter = this.GetComponent<MeshFilter>();
 
-        MeshGen meshBuilder = new MeshGen(Size);
+        MeshGen meshBuilder = new MeshGen(subMeshSize);
 
-        //Creating the points of the plane
+        //create points of our plane
         Vector3[,] points = new Vector3[width, height];
 
         for (int x = 0; x < width; x++)
@@ -46,18 +46,18 @@ public class PlaneGen : MonoBehaviour
 
         int submesh = 0;
 
-        for(int x = 0; x < width - 1; x++)
+        for (int x = 0; x < width - 1; x++)
         {
-            for(int y = 0; y < height - 1; y++)
+            for (int y = 0; y < height - 1; y++)
             {
-                Vector3 br = points[x ,    y];
+                Vector3 br = points[x, y];
                 Vector3 bl = points[x + 1, y];
-                Vector3 tr = points[x ,    y + 1];
+                Vector3 tr = points[x, y + 1];
                 Vector3 tl = points[x + 1, y + 1];
 
                 //create 2 triangles that make up a quad
-                meshBuilder.BuildTriangle(bl,tr,tl, submesh % Size);
-                meshBuilder.BuildTriangle(bl,br,tr, submesh % Size);
+                meshBuilder.BuildTriangle(bl, tr, tl, submesh % subMeshSize);
+                meshBuilder.BuildTriangle(bl, br, tr, submesh % subMeshSize);
             }
 
             submesh++;
@@ -74,13 +74,32 @@ public class PlaneGen : MonoBehaviour
     {
         List<Material> materialsList = new List<Material>();
 
-        Material blue = new Material(Shader.Find("Specular"));
-        blue.color = Color.blue;
-    
-        materialsList.Add(blue);
-      
+        Material redMat = new Material(Shader.Find("Specular"));
+        redMat.color = Color.red;
+
+        Material greenMat = new Material(Shader.Find("Specular"));
+        greenMat.color = Color.green;
+
+        Material blueMat = new Material(Shader.Find("Specular"));
+        blueMat.color = Color.blue;
+
+        Material yellowMat = new Material(Shader.Find("Specular"));
+        yellowMat.color = Color.yellow;
+
+        Material magentaMat = new Material(Shader.Find("Specular"));
+        magentaMat.color = Color.magenta;
+
+        Material whiteMat = new Material(Shader.Find("Specular"));
+        whiteMat.color = Color.white;
+
+        materialsList.Add(redMat);
+        materialsList.Add(greenMat);
+        materialsList.Add(blueMat);
+        materialsList.Add(yellowMat);
+        materialsList.Add(magentaMat);
+        materialsList.Add(whiteMat);
 
         return materialsList;
     }
-  
+
 }

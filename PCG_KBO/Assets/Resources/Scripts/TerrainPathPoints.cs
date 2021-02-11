@@ -6,6 +6,10 @@ public class TerrainPathPoints : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        GetComponent<Rigidbody>().isKinematic = true;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain"))
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+       
     }
 }

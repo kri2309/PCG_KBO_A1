@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 
-[ExecuteInEditMode]
 public class CubeGen : MonoBehaviour
 {
     [SerializeField]
@@ -77,8 +76,4 @@ public class CubeGen : MonoBehaviour
         meshRenderer.material = magenta;
     }
 
-    public void OnDrawGizmos()
-    {
-        Gizmos.DrawCube(transform.position, size*2);
-    }
 }

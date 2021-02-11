@@ -10,8 +10,6 @@ public class TriangleGen : MonoBehaviour
     [SerializeField]
     private Vector3 size = Vector3.one;
 
-    public List<Material> allMaterials;
-
 
     void Update()
     {
@@ -26,23 +24,16 @@ public class TriangleGen : MonoBehaviour
         Vector3 p1 = new Vector3(-size.x, size.y, -size.z);
         Vector3 p2 = new Vector3(-size.x, size.y,  size.z);
 
-        meshGen.BuildTriangle(p0, p1, p2, 0);
+        meshGen.BuildTriangle(p0, p1, p2, 0); //3 points and submesh index = material
 
         meshFilter.mesh = meshGen.CreateMesh();
 
         MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
-        AddMaterials();
-        meshRenderer.materials = allMaterials.ToArray();
-    }
-
-    private void AddMaterials()
-    {
 
         Material yellow = new Material(Shader.Find("Specular"));
         yellow.color = Color.yellow;
-      
-        allMaterials = new List<Material>();
-        allMaterials.Add(yellow);
-        
+        meshRenderer.material = yellow;
     }
+
+
 }

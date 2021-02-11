@@ -360,6 +360,6 @@ public class TerrainGen : MonoBehaviour
 
     void AddDetails()
     {
-        
+        //add vegitation
     }
 }

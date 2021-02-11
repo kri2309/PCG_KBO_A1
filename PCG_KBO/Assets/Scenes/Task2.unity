@@ -151,7 +151,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -658,10 +658,10 @@ MonoBehaviour:
     tileSize: {x: 1, y: 1}
   terrainTextureBlendOffset: 0.01
   treeDataList:
-  - treeMesh: {fileID: 100000, guid: c91c1eb85782d5748ace27eb4d7415bb, type: 3}
+  - treeMesh: {fileID: 651212244701853248, guid: 012abc615e3e4744d8dade71ddd48463, type: 3}
     minHeight: 0.6
     maxHeight: 20
-  - treeMesh: {fileID: 100016, guid: 469edab27ab6d004d84af2c4a851bd7f, type: 3}
+  - treeMesh: {fileID: 656151992699698964, guid: e70bdb75a3cdf17499a56489541d9f2f, type: 3}
     minHeight: 0.6
     maxHeight: 20
   maxTrees: 6000
