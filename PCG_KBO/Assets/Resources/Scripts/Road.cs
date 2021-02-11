@@ -120,6 +120,7 @@ public class Road : MonoBehaviour
         Vector3 offset = Vector3.zero;
         Vector3 targetOffset = Vector3.forward * lineWidth;
 
+        //using triangles to make the quads 
         MakeRoadQuad(meshGen, pPrev, pCurr, pNext, offset, targetOffset, 0);
 
         //Road
@@ -156,6 +157,7 @@ public class Road : MonoBehaviour
         MakeRoadQuad(meshGen, pPrev, pCurr, pNext, offset, targetOffset, stripeSubmesh);
 
     }
+    //using triangles to make the quads 
 
     //4. Create each quad
     private void MakeRoadQuad(MeshGen meshGen, Vector3 pPrev, Vector3 pCurr, Vector3 pNext,

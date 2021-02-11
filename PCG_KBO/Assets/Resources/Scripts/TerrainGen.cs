@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [System.Serializable]
 class TerrainTextureData
@@ -104,8 +105,22 @@ public class TerrainGen : MonoBehaviour
     [SerializeField]
     private bool addDetails;
 
-    void Start()
+    GameObject player, startObject,playerRef;
+    public GameObject[] startPoints;
+
+     void Start()
     {
+
+        player = Resources.Load("Prefabs/Player") as GameObject;
+        startObject = Resources.Load("Prefabs/Start") as GameObject;
+        int start = Random.Range(0, startPoints.Length);//creating random startpoint from array
+        if (Application.isPlaying) {
+            Instantiate(startObject, startPoints[start].transform.position, Quaternion.identity);
+            playerRef = Instantiate(player, startPoints[start].transform.position + Vector3.up, Quaternion.identity); //putting player on start point
+        }
+        
+
+
         terrain = GetComponent<Terrain>();
         terrainData = Terrain.activeTerrain.terrainData;
 

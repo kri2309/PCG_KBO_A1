@@ -286,7 +286,7 @@ namespace DigitalRuby.RainMaker
 #endif
 
             CheckForRainChange();
-            UpdateWind();
+           // UpdateWind();
             audioSourceRainLight.Update();
             audioSourceRainMedium.Update();
             audioSourceRainHeavy.Update();
